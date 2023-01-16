@@ -1,0 +1,7 @@
+1 Ali 3.81
+2 Aslam 3.52
+3 Akram 3.24
+4 umar 3.45
+5 Usama 3.24
+6 Abdul 3.56
+7 Khizar 3.76
