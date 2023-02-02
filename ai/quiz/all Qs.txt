@@ -1,0 +1,126 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load a sample dataframe with movie titles and release dates
+movies = pd.DataFrame({
+    'title': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight', '12 Angry Men'],
+    'release_date': ['1994-10-14', '1972-03-24', '1974-12-20', '2008-07-16', '1957-03-25']
+})
+
+# Convert the release_date column to datetime and extract the year
+movies['release_date'] = pd.to_datetime(movies['release_date'])
+movies['released_year'] = movies['release_date'].dt.year
+
+# Group the data by the released_year column and count the number of movies in each year
+released_year_count = movies.groupby('released_year').size().reset_index(name='counts')
+
+# Plot a bar graph showing the number of movies released in each year
+plt.bar(released_year_count['released_year'], released_year_count['counts'])
+plt.xlabel('Year')
+plt.ylabel('Number of Movies')
+plt.title('Number of Movies Released in Each Year')
+plt.show()
+
+
+
+
+// random number
+
+
+
+import pandas as pd
+import numpy as np
+
+# Load a sample dataframe with movie titles and release dates
+movies = pd.DataFrame({
+    'title': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight', '12 Angry Men'],
+    'release_date': ['1994-10-14', '1972-03-24', '1974-12-20', '2008-07-16', '1957-03-25']
+})
+
+# Add a column of random numbers using the np.random.rand function
+movies['random_numbers'] = np.random.rand(len(movies))
+
+# Verify the contents of the dataframe
+print(movies)
+
+
+// profit
+
+import pandas as pd
+
+# Load a sample dataframe with movie titles, production costs, and worldwide gross earnings
+movies = pd.DataFrame({
+    'title': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight', '12 Angry Men'],
+    'production_cost': [25000000, 6000000, 13000000, 185000000, 350000],
+    'worldwide_gross': [283414269, 134821952, 726484527, 1004558444, 37661604]
+})
+
+# Add a column to show the profit calculated as [worldwide gross] - [production cost]
+movies['profit'] = movies['worldwide_gross'] - movies['production_cost']
+
+# Verify the contents of the dataframe
+print(movies)
+
+
+
+// yes or no rank
+
+import pandas as pd
+
+# Load a sample dataframe with movie titles and their IMDb ranks
+movies = pd.DataFrame({
+    'title': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight', '12 Angry Men'],
+    'rank': [1, 2, 3, 4, 1001]
+})
+
+# Add a column to show if the movie is worth watching based on its IMDb rank
+movies['worth_watching'] = np.where(movies['rank'] <= 1000, 'yes', 'no')
+
+# Verify the contents of the dataframe
+print(movies)
+
+
+
+// mean prize column
+
+import pandas as pd
+import numpy as np
+
+# Load a sample dataframe with product names and prices
+products = pd.DataFrame({
+    'name': ['Product 1', 'Product 2', 'Product 3', 'Product 4', 'Product 5'],
+    'price_1': [10, 20, 15, 25, 30],
+    'price_2': [12, 22, 18, 28, 32],
+    'price_3': [11, 21, 16, 26, 31]
+})
+
+# Calculate the mean value for the 3 price columns
+mean_price = products[['price_1', 'price_2', 'price_3']].mean(axis=1)
+
+# Add the mean price as a new column in the dataframe
+products['mean_price'] = mean_price
+
+# Verify the contents of the dataframe
+print(products)
+
+
+// plot a movie year grapgh
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load a sample dataframe with movie titles and release dates
+movies = pd.DataFrame({
+    'title': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight', '12 Angry Men'],
+    'release_date': ['1994-10-14', '1972-03-24', '1974-12-20', '2008-07-16', '1957-03-25']
+})
+
+# Add a column to show the release year for each movie
+movies['released_year'] = pd.to_datetime(movies['release_date']).dt.year
+
+# Plot a bar graph to show the number of movies released in each year
+movies['released_year'].value_counts().plot(kind='bar')
+plt.xlabel('Year')
+plt.ylabel('Number of movies')
+plt.title('Number of movies released in each year')
+plt.show()
