@@ -1,19 +1,22 @@
 import sys
 from PyQt6 import QtCore,QtGui,QtWidgets,uic
 from PyQt6.QtCore import Qt
-
+from random import randint
 
 class graphic(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.last_x, self.last_y = None, None
         self.label = QtWidgets.QLabel()
         canvas = QtGui.QPixmap(600,400)
-        canvas.fill(Qt.GlobalColor.yellow)
+        canvas.fill(Qt.GlobalColor.white)
         self.label.setPixmap(canvas)
         self.setCentralWidget(self.label)
         # self.draw_triangle()        
-        self.draw_pentagon()
+        # self.draw_pentagon()
         # self.draw_rand_points()
+        # self.draw_rectangle()
+        # self.draw_circle()
     def draw_triangle(self):
         canvas = self.label.pixmap()
         # simple
@@ -100,7 +103,7 @@ class graphic(QtWidgets.QMainWindow):
         pen = QtGui.QPen()
         pen.setWidth(3)
         painter.setPen(pen)
-        pen.setColor(QtGui.QColor('#54f4e4'))
+        pen.setColor(QtGui.QColor(204,0,0))
         painter.setPen(pen)
         p1,p2 = QtCore.QPoint(500,350),QtCore.QPoint(500,160)
         painter.drawLine(p1,p2)
@@ -123,10 +126,86 @@ class graphic(QtWidgets.QMainWindow):
         painter.drawText(200, 250, 'BY SPY101')
         painter.end()
         self.label.setPixmap(canvas)
+    
+    def draw_rectangle(self):
+    
+        canvas = self.label.pixmap()
+        # rect
+        painter = QtGui.QPainter(canvas)
+        pen = QtGui.QPen()
+        pen.setWidth(3)
+        pen.setColor(QtGui.QColor("#376F9F"))
+        painter.setPen(pen)
+        painter.drawRect(40,40,100,100)
+        painter.end()
+        # rounded
+        painter = QtGui.QPainter(canvas)
+        pen = QtGui.QPen()
+        pen.setWidth(3)
+        pen.setColor(QtGui.QColor("#3FF89F"))
+        painter.setPen(pen)
+        painter.drawRoundedRect(200, 40, 100, 100, 10, 10)
+        painter.end()
+        self.label.setPixmap(canvas)
+    def draw_circle(self):
+        canvas = self.label.pixmap()
+        # circle
+        painter = QtGui.QPainter(canvas)
+        pen = QtGui.QPen()
+        pen.setWidth(3)
+        pen.setColor(QtGui.QColor("#65c5c4"))
+        painter.setPen(pen)
+        painter.drawEllipse(QtCore.QPoint(250,250),100,100)
+        painter.end()
         
-        
+        painter = QtGui.QPainter(canvas)
+
+        pen = QtGui.QPen()
+        pen.setWidth(1)
+        pen.setColor(QtGui.QColor('#4f5a5b'))
+        painter.setPen(pen)
+
+        font = QtGui.QFont()
+        font.setFamily('Seriaf')
+        font.setBold(True)
+        font.setPointSize(20)
+        painter.setFont(font)
+
+        painter.drawText(180, 250, 'BY SPY101')
+        painter.end()
+        self.label.setPixmap(canvas)
+
+    
+    # def mouseMoveEvent(self, e):
+    #     canvas = self.label.pixmap()
+    #     painter = QtGui.QPainter(canvas)
+    #     painter.drawPoint(int(e.position().x()), int(e.position().y()))
+    #     painter.end()
+    #     self.label.setPixmap(canvas)
+     
+
+    def mouseMoveEvent(self, e):
+        if self.last_x is None: # First event.
+            self.last_x = int(e.position().x())
+            self.last_y = int(e.position().y())
+            return # Ignore the first time.
+
+        canvas = self.label.pixmap()
+        painter = QtGui.QPainter(canvas)
+        painter.drawLine(int(self.last_x), int(self.last_y), int(e.position().x()), int(e.position().y())) #type: ignore
+        painter.end()
+        self.label.setPixmap(canvas)
+
+        # Update the origin for next time.
+        self.last_x = e.position().x()
+        self.last_y = e.position().y()
+
+    def mouseReleaseEvent(self, e):
+        self.last_x = None
+        self.last_y = None
+    
 if __name__ =='__main__':
-    application = QtWidgets.QApplication([])
+    application = QtWidgets.QApplication(sys.argv)
     window = graphic()
     window.show()
     sys.exit(application.exec())
