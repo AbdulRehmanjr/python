@@ -1,14 +1,1 @@
-[
-  {
-    "studentId": 1,
-    "studentName": "Umar",
-    "fatherName": "waris",
-    "studentDob": "10/20/2002",
-    "studentAddress": "gujranwala",
-    "studentPhone": "03345665765",
-    "studentGender": "male",
-    "studentSection": "C",
-    "studentBatch": "20",
-    "studentRoll": "139"
-  }
-]
+[]
