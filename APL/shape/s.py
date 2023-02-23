@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (QWidget,QHBoxLayout,
                              )
 from PyQt6.QtGui import (QColor)
 from PyQt6.QtCore import Qt
-from random import randint
+import random
 
 class graphic(QWidget):
     def __init__(self):
@@ -18,27 +18,28 @@ class graphic(QWidget):
         self.pen_color = QColor()
         self.pen_size = 0
         self.pen_shape = ''
-    
-    
-    
-    
+        
         #setting windows
         self.setWindowTitle("Paint App By SPYDEV")
         self.setGeometry(250,150,700,400)
         
         self.last_x, self.last_y = None, None
         self.canvas_label = QLabel()
-        self.canvas = QtGui.QPixmap(600,400)
+        self.canvas = QtGui.QPixmap(500,400)
         self.canvas.fill(Qt.GlobalColor.white)
         self.canvas_label.setPixmap(self.canvas)
         
         self.colors = self.generate_hex_colors(10)
         
         self.pen_width = QVBoxLayout()
+        
         self.main_box = QVBoxLayout()
+        self.main_box.addWidget(self.canvas_label)
+        
         self.color_list = QVBoxLayout()
         
         self.h_layout = QHBoxLayout()
+        
         
         
         
@@ -145,15 +146,19 @@ class graphic(QWidget):
         pen.setColor(QtGui.QColor(self.pen_color))
         
         painter.setPen(pen)
+        # print(self.last_x,self.last_y)
+        print(e.position().x(),e.position().y())
+        last_x, last_y =int(e.position().x())-101, int(e.position().y())-11
         
-        painter.drawLine(int(self.last_x), int(self.last_y), int(e.position().x()), int(e.position().y())) #type: ignore
+        painter.drawLine(last_x,last_y, int(e.position().x())-101, int(e.position().y())-11) # type: ignore
+        painter.drawRect(last_x,last_y,100,100)
         painter.end()
         
         self.canvas_label.setPixmap(canvas)
 
         # Update the origin for next time.
-        self.last_x = int(e.position().x())
-        self.last_y = int(e.position().y())
+        # self.last_x = x
+        # self.last_y = y
 
     def mouseReleaseEvent(self, e):
         self.last_x = None

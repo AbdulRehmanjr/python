@@ -4,9 +4,9 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
 from PyQt6.QtWidgets import (QApplication, QWidget, QPushButton,
-                             QGridLayout, QTextEdit,
-                             QLabel,QHBoxLayout,QVBoxLayout)
-
+                             QGridLayout, QTextEdit,QVBoxLayout,
+                             QLabel,QHBoxLayout,QMenuBar)
+from PyQt6.QtGui import (QAction)
 
 class MainWindow(QWidget):
 
@@ -17,18 +17,31 @@ class MainWindow(QWidget):
         # attributes
         
         self.grammar = Grammar()
-        
-        self.grid_left  =QGridLayout()
-        self.grid_right  =QGridLayout()
+        self.v_layout = QVBoxLayout()
         self.h_layout = QHBoxLayout()
         
-        self.b_list = ['Grammar Correction','POS Separation','Emotion Sensor']
         self.p_btn = []
+        
+        self.menu_bar = QMenuBar()
+        self.action_gc = QAction("Grammar Correction",self)
+        self.action_pos = QAction("POS Separation",self)
+        self.action_es = QAction("Emotion Sensor",self)
+        
+        self.menu_bar.addAction(self.action_gc)
+        self.menu_bar.addAction(self.action_pos)
+        self.menu_bar.addAction(self.action_es)
+        
+        self.action_gc.triggered.connect(self.action_of_menu)
+        self.action_pos.triggered.connect(self.action_of_menu)
+        self.action_es.triggered.connect(self.action_of_menu)
+        
+        
         
         self.label = QLabel()
         
         self.area = QTextEdit()
         self.area.setStyleSheet(f"font-size:20px")
+        self.area.wordWrapMode()
         
         self.answer = QTextEdit()
         self.answer.setReadOnly(True)
@@ -37,84 +50,68 @@ class MainWindow(QWidget):
         
         self.r_action_btn = QPushButton("Submit")
         self.r_action_btn.setFixedWidth(120)
-        self.r_action_btn.clicked.connect(self.action_of_btn)
-        
+        self.r_action_btn.clicked.connect(self.btn_submit)
         #methods
         self.initUI()
         
-        self.addButtons()
-        
-        self.addRightSide()
 
     def initUI(self):
+        ''' Seting the UI for project'''
         # layout objects
+        self.v_layout.addWidget(self.menu_bar)
         
-        self.grid_left.setColumnStretch(0, 1)
-        
-        self.grid_right.setColumnStretch(0, 3)
         
         # adding layout
-        self.h_layout.addLayout(self.grid_left)
-        self.h_layout.addLayout(self.grid_right)
+        self.v_layout.addWidget(self.menu_bar)
+        
+        self.label.setText("")
+        
+        self.v_layout.addWidget(self.label)
+        self.v_layout.addWidget(self.area)
+        self.v_layout.addWidget(self.r_action_btn)
+        self.v_layout.addWidget(self.answer)
         
         # Set main layout for window
-        self.setLayout(self.h_layout)
+        self.setLayout(self.v_layout)
 
-    def addButtons(self):
-        
-        for btn in self.b_list:
-            
-            n_btn = QPushButton(btn)
-            n_btn.setFixedWidth(120)
-            n_btn.clicked.connect(self.action_of_btn)
-            
-            self.p_btn.append(n_btn)
-            
-            self.grid_left.addWidget(n_btn)
-            
-    def action_of_btn(self):
-        
+    
+    def btn_submit(self):
+        '''Performing the Action Submit Button'''
         mode = self.sender().text() # type: ignore
-        
+        print(mode)
         if mode == 'Submit':
             
             action = self.label.text()        
             text = self.area.toPlainText()
             if action =='Grammar Correction':
-                answer = self.grammar.grammar_correction(text)
-                print(answer)
-                self.answer.setText(answer)
-
+                corrected_text = self.grammar.grammar_correction(text)
+                self.answer.setText(corrected_text)
+                # pass
             elif action == 'POS Separation':
                 self.label.setText(mode)
-            
+
             else:
                 answer = self.grammar.detect_emotion(text)
                 print(answer)
                 self.answer.setText(answer)
-            
-        elif mode =='Grammar Correction':
+                # pass
+        
+    
+    def action_of_menu(self):
+        
+        '''Performing the required action from menu'''
+        mode = self.sender().text() # type: ignore
+        print(mode)
+                    
+        if mode =='Grammar Correction':
             self.label.setText(mode)        
     
         elif mode == 'POS Separation':
             self.label.setText(mode)
         else:
             self.label.setText('Emotion Sensor')     
-            
-            
-        print(mode)
+                        
 
-    def addRightSide(self):
-        
-        self.label.setText("")
-        
-        self.grid_right.addWidget(self.label)
-        
-        self.grid_right.addWidget(self.area)
-        
-        self.grid_right.addWidget(self.r_action_btn)
-    
-        self.grid_right.addWidget(self.answer)
         
         
 class Grammar:
@@ -147,12 +144,13 @@ class Grammar:
         errorEndPosition = []
 
         for match in matches:
+            
             if len(match.replacements) > 0:
                 errorStartPosition.append(match.offset)
                 errorEndPosition.append(match.offset + match.errorLength)
                 mistakes.append(text[match.offset : match.offset + match.errorLength])
                 corrections.append(match.replacements[0])
-
+        
         newText = list(text)
 
         for i in range(len(errorStartPosition)):
@@ -162,8 +160,8 @@ class Grammar:
                     newText[j] = ""
 
         newText = "".join(newText)
-
-        return newText
+        
+        return newText    
     
 if __name__ == '__main__':
     application = QApplication(sys.argv)
