@@ -1,0 +1,38 @@
+[
+  {
+    "studentId": 2,
+    "studentName": "Abdul Rehman",
+    "fatherName": "Nadeem",
+    "studentDob": "30/10/2001",
+    "studentAddress": "Ghakhar",
+    "studentPhone": "+923341047072",
+    "studentGender": "Male",
+    "studentSection": "C",
+    "studentBatch": "20",
+    "studentRoll": "20021519-101"
+  },
+  {
+    "studentId": 3,
+    "studentName": "Khizar",
+    "fatherName": "Hayat",
+    "studentDob": "10/03/2002",
+    "studentAddress": "Gujranwala",
+    "studentPhone": "+92334567712",
+    "studentGender": "Male",
+    "studentSection": "C",
+    "studentBatch": "20",
+    "studentRoll": "20021519-139"
+  },
+  {
+    "studentId": 4,
+    "studentName": "Usama",
+    "fatherName": "Amjad",
+    "studentDob": "10/03/2002",
+    "studentAddress": "Gujranwala",
+    "studentPhone": "+92334567712",
+    "studentGender": "Male",
+    "studentSection": "C",
+    "studentBatch": "20",
+    "studentRoll": "20021519-139"
+  }
+]

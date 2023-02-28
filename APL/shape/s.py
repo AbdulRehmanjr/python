@@ -151,7 +151,7 @@ class graphic(QWidget):
         last_x, last_y =int(e.position().x())-101, int(e.position().y())-11
         
         painter.drawLine(last_x,last_y, int(e.position().x())-101, int(e.position().y())-11) # type: ignore
-        painter.drawRect(last_x,last_y,100,100)
+        # painter.drawRect(last_x,last_y,100,100)
         painter.end()
         
         self.canvas_label.setPixmap(canvas)
