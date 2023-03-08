@@ -27,7 +27,7 @@ class MainWindow(QWidget):
         # buttons list
         self.numericButtons = [1,2,3,4,5,6,7,8,9,0]
         self.operationButtons = ['/','*','+','-','(',')','=','DEL','CLR']
-        self.pop = QPushButton('PoP up')
+        # self.pop = QPushButton('PoP up')
         self.actionedButtons = []
         #======setting layouts
         self.formLayout.addWidget(self.menu)
@@ -87,15 +87,15 @@ class MainWindow(QWidget):
                 self.actionedButtons.append(addButton)
                 self.numericGrid.addWidget(addButton)
         
-        self.pop.setFixedWidth(70)
-        self.pop.setFixedHeight(70)
-        self.pop.clicked.connect(self.popAction)
-        self.actionGrid.addWidget(self.pop)
+        # self.pop.setFixedWidth(70)
+        # self.pop.setFixedHeight(70)
+        # self.pop.clicked.connect(self.popAction)
+        # self.actionGrid.addWidget(self.pop)
     
-    def popAction(self):
-        window2 = QMainWindow()
-        RollMsg = QLabel('<h1>200215191-101</h1>',parent=window2)
-        window2.show()
+    # def popAction(self):
+    #     window2 = QMainWindow()
+    #     RollMsg = QLabel('<h1>200215191-101</h1>',parent=window2)
+    #     window2.show()
     def addAction(self,allButtons):
     
         '''Adding action to buttons'''

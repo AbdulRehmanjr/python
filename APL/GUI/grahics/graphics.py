@@ -8,7 +8,7 @@ class graphic(QtWidgets.QMainWindow):
         super().__init__()
         self.last_x, self.last_y = None, None
         self.label = QtWidgets.QLabel()
-        canvas = QtGui.QPixmap(600,400)
+        canvas = QtGui.QPixmap(500,400)
         canvas.fill(Qt.GlobalColor.white)
         self.label.setPixmap(canvas)
         self.setCentralWidget(self.label)
@@ -17,6 +17,44 @@ class graphic(QtWidgets.QMainWindow):
         # self.draw_rand_points()
         # self.draw_rectangle()
         # self.draw_circle()
+        self.quiz()
+        
+    def quiz(self):
+        canvas = self.label.pixmap()
+        
+        
+        painter = QtGui.QPainter(canvas)
+        
+        pen = QtGui.QPen()
+        pen.setWidth(2)
+        painter.setPen(pen)
+        
+        painter.drawRect(50,100,100,75)
+        painter.drawLine(100,50,50,100)
+        painter.drawLine(100,50,150,100)
+        painter.drawLine(150,100,200,90)
+        painter.drawLine(150,175,200,165)
+        painter.drawLine(200,165,200,90)
+        painter.drawLine(100,50,175,50)
+        painter.drawLine(200,90,175,50)
+        
+        painter.drawEllipse(80,125,30,30)
+        
+        pen.setColor(QtGui.QColor('green'))
+        painter.setPen(pen)
+
+        font = QtGui.QFont()
+        font.setFamily('Times')
+        font.setBold(True)
+        font.setPointSize(40)
+        painter.setFont(font)
+
+        painter.drawText(200, 250, 'Happy Quiz')
+
+
+        painter.end()
+        self.label.setPixmap(canvas)
+        
     def draw_triangle(self):
         canvas = self.label.pixmap()
         # simple

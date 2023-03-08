@@ -34,7 +34,7 @@ class MainWindow(QWidget):
         self.action_new = QAction("New",self)
         self.action_view = QAction("View",self)
         self.action_exit = QAction("Exit",self)
-        self.action_view.triggered.connect(self.view)
+        # self.action_view.triggered.connect(self.view)
         self.menu_bar.addAction(self.action_new)
         self.menu_bar.addAction(self.action_view)
         self.menu_bar.addAction(self.action_exit)
