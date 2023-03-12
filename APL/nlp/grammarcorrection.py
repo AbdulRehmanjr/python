@@ -5,7 +5,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 from nltk.corpus import wordnet 
 from PyQt6.QtWidgets import (QApplication, QMainWindow,QWidget,
-                             QSplashScreen
+                             QSplashScreen,
                               )
 from PyQt6 import uic
 from PyQt6.QtGui import QColor,QFont,QPixmap
@@ -215,21 +215,14 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = grammarcorrection()
     
-    splash = QSplashScreen()
+    pic = QPixmap("./images/welcome.png")
+    splash = QSplashScreen(pic)
+    splash.setGeometry(400,300,500,300)
+    
     splash.show()
- 
-    splash.setFixedSize(400, 200)
-    splash.setGeometry(400,300,400,200)
-    splash.setFont(QFont('Times',20,900,True))
-    splash.setPixmap(QPixmap('./logo.png'))
-    splash.showMessage("Grammar Correction\nGroup 10 \n101,110,125", 5, 
-                    color=QColor("Blue"))
+    time.sleep(4)
     
-    time.sleep(2)
+    splash.close()
     
-    app.processEvents()    
-    
-    widget.show()
-    splash.finish(widget)
-    
+    widget.show()    
     sys.exit(app.exec())
