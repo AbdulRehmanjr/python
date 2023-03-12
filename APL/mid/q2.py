@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime
+
 from PyQt6.QtWidgets import (
     QApplication,QWidget,
     QFormLayout,QPushButton,
@@ -7,8 +8,11 @@ from PyQt6.QtWidgets import (
     QMainWindow,QLabel,
     QComboBox
     )
+
 from PyQt6.QtGui import QAction
+
 from PyQt6.QtCore import Qt
+
 # class for window
 class MainWindow(QWidget):
     
