@@ -8,7 +8,7 @@ class graphic(QtWidgets.QMainWindow):
         super().__init__()
         self.last_x, self.last_y = None, None
         self.label = QtWidgets.QLabel()
-        canvas = QtGui.QPixmap(500,400)
+        canvas = QtGui.QPixmap(700,600)
         canvas.fill(Qt.GlobalColor.white)
         self.label.setPixmap(canvas)
         self.setCentralWidget(self.label)
@@ -17,11 +17,41 @@ class graphic(QtWidgets.QMainWindow):
         # self.draw_rand_points()
         # self.draw_rectangle()
         # self.draw_circle()
-        self.quiz()
+        # self.quiz()
+        # self.practice()
+        
+    def practice(self):
+        
+        canvas = self.label.pixmap()
+        painter = QtGui.QPainter(canvas)
+        
+        pen = QtGui.QPen()
+        pen.setWidth(4)
+        pen.setColor(QtGui.QColor('#0000ff'))
+        
+        painter.setPen(pen)
+        
+        painter.drawRect(100,250,300,275)
+        painter.drawLine(100,250,250,100)
+        painter.drawLine(250,100,400,250)
+        painter.drawEllipse(200,350,100,100)
+        
+        # text ==> message , font 
+        font = QtGui.QFont()
+        font.setFamily('Times')
+        font.setBold(True)
+        font.setPointSize(40)
+        
+        painter.setFont(font)
+        
+        painter.drawText(200, 250, 'Happy Quiz')
+                
+        painter.end()
+        self.label.setPixmap(canvas)
         
     def quiz(self):
-        canvas = self.label.pixmap()
         
+        canvas = self.label.pixmap()
         
         painter = QtGui.QPainter(canvas)
         
@@ -221,7 +251,7 @@ class graphic(QtWidgets.QMainWindow):
     #     painter.end()
     #     self.label.setPixmap(canvas)
      
-
+    
     def mouseMoveEvent(self, e):
         if self.last_x is None: # First event.
             self.last_x = int(e.position().x())
