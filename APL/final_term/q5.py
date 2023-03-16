@@ -43,6 +43,11 @@ class MainWindow(QWidget):
         self.f_layout.addRow("Publish Date",self.pubdate)
 
         
+        
+        #validate 
+        self.id.editingFinished.connect(self.validate_id)
+        self.issn.editingFinished.connect(self.validate_id)
+
         self.setButtons()
         # setting buttons
         
@@ -65,8 +70,13 @@ class MainWindow(QWidget):
             _issn = self.issn.text() 
             _pubdate = self.pubdate.text()
             
-            print(f"[*] Data: {_id},{_title},{_category},{_publisher},{_issn},{_pubdate}") 
-            
+            if not _id or not _title or not _publisher or not _issn:
+                message = QMessageBox()
+                message.setIcon(QMessageBox.Icon.Warning) 
+                message.setText("Please Enter all fields")
+                message.exec()
+                
+            print(f"[*] Data: {_id},{_title},{_category},{_publisher},{_issn},{_pubdate}")  
         else:
             button = QMessageBox.warning(self, 'Warning','All Changed will be undo')
             
@@ -78,9 +88,16 @@ class MainWindow(QWidget):
                 
                 self.publisher.setText('')
                 self.issn.setText('') 
+        
                 
-                
-            
+    def validate_id(self):
+        id_text = self.id.text()
+        if not id_text.isdigit():
+            message = QMessageBox()
+            message.setIcon(QMessageBox.Icon.Warning) # set warning icon
+            message.setText("Invalid ID. Please enter a valid integer.")
+            message.exec()
+            self.id.clear()          
                  
 
 if __name__ == '__main__':
