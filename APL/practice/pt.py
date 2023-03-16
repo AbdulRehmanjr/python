@@ -38,10 +38,10 @@ class MainWindow(QMainWindow):
         self.table.setRowCount(len(self.employees))
 
         row = 0
-        for e in self.employees:
-            self.table.setItem(row, 0, QTableWidgetItem(e['studentName']))
-            self.table.setItem(row, 1, QTableWidgetItem(str(e['studentSection'])))
-            self.table.setItem(row, 2, QTableWidgetItem(str(e['studentBatch'])))
+        for employee in self.employees:
+            self.table.setItem(row, 0, QTableWidgetItem(employee['studentName']))
+            self.table.setItem(row, 1, QTableWidgetItem(str(employee['studentSection'])))
+            self.table.setItem(row, 2, QTableWidgetItem(str(employee['studentBatch'])))
 
             row += 1
 
@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
 
         self.first_name = QLineEdit(form)
         self.last_name = QLineEdit(form)
-        self.age = QSpinBox(form, minimum=18, maximum=67)
+        self.age = QSpinBox(form)
         self.age.clear()
 
         layout.addRow('Name:', self.first_name)
@@ -81,7 +81,7 @@ class MainWindow(QMainWindow):
 
 
     def getData(self):
-        with open('./student.json', "r") as fileData:
+        with open('./student.json', 'r') as fileData:
             self.employees = json.load(fileData)
         
         
